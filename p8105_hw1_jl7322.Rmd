@@ -13,7 +13,7 @@ library(tidyverse)
 
 Load the penguins dataset from palmerpenguins.
 
-```{r}
+```{r load_penguins}
 data("penguins", package = "palmerpenguins")
 ```
 
@@ -24,7 +24,7 @@ The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.r
 
 Next, create a scatterplot of flipper length against bill length, with points colored by species.
 
-```{r warning=FALSE}
+```{r penguin_scatterplot, warning=FALSE}
 penguin_plot = 
   ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 
@@ -43,7 +43,7 @@ ggsave('penguin_scatterplot.pdf', penguin_plot, height = 4, width = 6)
 
 Create dataframe contain numeric, logical, character, and factor variables.
 
-```{r}
+```{r create_dataframe}
 problem2_df = 
   tibble(normal_sample = rnorm(10),
          sample_positive = normal_sample > 0,
@@ -55,7 +55,7 @@ problem2_df
 
 Next, try to take the mean of each variable in the dataframe.
 
-```{r}
+```{r caculate_means}
 mean(pull(problem2_df, normal_sample))
 mean(pull(problem2_df, sample_positive))
 mean(pull(problem2_df, character_vector))
@@ -65,9 +65,9 @@ mean(pull(problem2_df, factor_vector))
 The mean works for the numeric and logical variables. For the logical variable, R treats `TRUE` as 1 and `FALSE` as 0, so the mean represents the proportion of values that are `TRUE`. 
 The mean does not work for the character or factor variables.
 
-Then, convert the logical, charactor, and factor variables to numeric variables using `as.numeric`.
+Then, convert the logical, character, and factor variables to numeric variables using `as.numeric`.
 
-```{r results='hide', warning=FALSE}
+```{r convert_variables, results='hide', warning=FALSE}
 as.numeric(pull(problem2_df, sample_positive))
 as.numeric(pull(problem2_df, character_vector))
 as.numeric(pull(problem2_df, factor_vector))
@@ -77,7 +77,7 @@ Converting the logical variable to numeric changes `TRUE` to 1 and `FALSE` to 0.
 
 Converting the character variable to numeric produces `NA` values, which means character values cannot be converted to numbers. 
 
-Converting the factor variable to numeric produces integer values corresponding to its factor levels.
+Converting the factor variable to numeric produces integer values corresponding to its factor levels. These integers represent the internal coding of the factor levels rather than numerical values, which helps explain why taking the mean of the factor variable directly does not work.
 
 
 

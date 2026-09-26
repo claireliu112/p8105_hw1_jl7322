@@ -5,6 +5,37 @@ date: "2026-09-26"
 output: github_document
 ---
 
-```{r}
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
 ```
+
+## Problem 1
+
+Load the penguins dataset from palmerpenguins.
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+The `penguins` dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables.
+The variable names are `r paste(names(penguins), collapse = ", ")`.
+The species included are `r paste(unique(pull(penguins, species)))`.
+The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), digits = 2)` mm.
+
+Next, create a scatterplot of flipper length against bill length, with points colored by species.
+
+```{r warning=FALSE}
+penguin_plot = 
+  ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
+penguin_plot
+```
+
+Then, save the scatterplot to the project directory.
+
+```{r warning=FALSE}
+ggsave('penguin_scatterplot.pdf', penguin_plot, height = 4, width = 6)
+```
+
+
 
